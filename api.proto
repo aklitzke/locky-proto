@@ -1,0 +1,46 @@
+syntax = "proto3";
+package api;
+
+service IdealFiesta {
+    rpc SayHello (HelloRequest) returns (HelloReply);
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+    rpc CreateKey(CreateKeyRequest) returns (CreateKeyResponse);
+    rpc GetKey(GetKeyRequest) returns (GetKeyResponse);
+}
+message HelloRequest {
+    string name = 1;
+}
+message HelloReply {
+    string message = 1;
+}
+
+message CreateAccountRequest {
+  string email = 1;
+}
+
+message CreateAccountResponse {
+    string account_id = 1;
+    string access_token = 2;
+}
+
+message CreateKeyRequest {
+    string account_id = 1;
+    string access_token = 2;
+    string name = 3;
+}
+
+message CreateKeyResponse {
+}
+
+// Request and Response messages for getKey
+message GetKeyRequest {
+    string account_id = 1;
+    string access_token = 2;
+    string name = 3;
+    bytes ephemeral_encaps_key = 4; // 32-byte public key
+}
+
+message GetKeyResponse {
+  bytes key_ciphertext = 1; // 256-bit key, encapsulated
+  bytes encaps_ciphertext = 2; // ciphertext for key that encrypts key_ciphertext
+}
