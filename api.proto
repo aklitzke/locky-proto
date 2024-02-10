@@ -1,17 +1,11 @@
 syntax = "proto3";
 package api;
 
-service IdealFiesta {
-    rpc SayHello (HelloRequest) returns (HelloReply);
+service Locky {
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
     rpc CreateKey(CreateKeyRequest) returns (CreateKeyResponse);
     rpc GetKey(GetKeyRequest) returns (GetKeyResponse);
-}
-message HelloRequest {
-    string name = 1;
-}
-message HelloReply {
-    string message = 1;
+    rpc PingPong (Ping) returns (Pong);
 }
 
 message CreateAccountRequest {
@@ -43,4 +37,12 @@ message GetKeyRequest {
 message GetKeyResponse {
   bytes key_ciphertext = 1; // 256-bit key, encapsulated
   bytes encaps_ciphertext = 2; // ciphertext for key that encrypts key_ciphertext
+}
+
+// Just for testing
+message Ping {
+    string name = 1;
+}
+message Pong {
+    string message = 1;
 }
